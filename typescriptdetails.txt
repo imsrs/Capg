@@ -1,0 +1,532 @@
+Typescript 
+=============
+
+2016 
+===
+let - to declare variables
+var - 
+
+const - to declare constants
+
+var and let - to tell about scoping of variables
+block - defined with curly braces .
+
+var :
+=====
+
+1. globally available in the function in which it is declared 
+2. hoisted at the top of the function 
+3. varible may be declared a second time in the same function 
+
+let:
+====
+
+1. only avaiable in the block in which it is declared 
+2. not hoisted at the top of the block 
+3. variable name may only be declared once per block .
+
+function ScopeTest()
+{
+  if (true){
+     var foo = 'use anywhere';
+      let bar = 'use in this block';
+}
+
+console.log(foo);
+console.log(bar);
+}
+
+Basic types :
+============
+
+boolean 
+Number 
+String 
+Arrays - diff ways to declare
+Enum - finite set of new values 
+Any 
+void
+
+Type Inference
+==============
+
+let myString='this is a string';
+myString = 34; //error
+
+function ReturnNumber(){
+return 44;
+}
+
+let anotherstring ='this is also a string'
+anotherstring = ReturnNumber(); //error
+
+Adding type Annotations
+===========================
+
+let myString:string='this is a string ';
+myString = 34; //error
+
+function ReturnNumber():number{
+return 44;
+}
+
+let anotherstring:string ='this is also a string'
+anotherstring = ReturnNumber(); //error
+
+function GetAllBooks(){
+    let books=[
+             {title:Ulysses',author:'James Joyce',available:true},
+title:A Farewell to Arms',author:'Hernest Hemingway',available:false},
+title:I know why the caged bird sings',author:'Maya Angelu',available:true}
+];
+
+return books;
+}
+
+function LogFirstAvailable(books):void{
+
+      let numberOfBooks=books.length;
+      let firstAvailable = '';
+for(let currentBook of books) {
+
+  // let firstAvailable = ''; this cannot be accessible outside the function wherein you get the console.log line highlighted in red .so move it outside the for loop
+  
+   if (currentBook.available){
+   
+        firstAvailable = currentBook.title;
+        break;
+
+}
+}
+
+console.log('Total books:' + numberOfBooks);
+console.log('first Availble :'+firstAvailable);
+}
+
+const allBooks=GetallBooks();
+allBooks = [];
+allBooks.push({title:'Moby Dick',author:'Herman Melville',available:true});
+LogFirstAvailable(allBooks);
+
+
+Adding Annotations
+===================
+function LogFirstAvailable(books):void{
+
+      let numberOfBooks:number=books.length;
+      let firstAvailable:string = '';
+for(let currentBook of books) {
+
+  // let firstAvailable = ''; this cannot be accessible outside the function wherein you get the console.log line highlighted in red .so move it outside the for loop
+  
+   if (currentBook.available){
+   
+        firstAvailable = currentBook.title;
+        break;
+
+}
+}
+
+Enums , Arrays 
+==============
+
+enum Category{ Biography , Poetry , Fiction }; //0 ,1,2 
+
+Assinging values :
+===================
+enum Category{ Biography=1, Poetry , Fiction };
+
+
+enum Category{ Biography=5, Poetry=8 , Fiction=9 };
+let favoriteCategory:Category = Category.Biography ;
+
+console.log(favoriteCategory); //5
+let categoryString = Category[favoriteCategory] ; //Biography 
+
+Arrays declared in 2 ways 
+============================
+let strArray1:string[]=['here','are','strings'];
+
+let strArray2:Array<string>=['more', 'strings','here'];
+
+Accessed and used much like Javascript arrays
+declare asan array if "any" to store any type in the same array 
+
+Tuples
+Arrays where types of first few elements are specified 
+types do not have to be the same
+Additional elements can be any type from those previously specified 
+
+let mytuple:[number,string]=[25,'truck']
+
+let firstElement=myTuple[0]; //25
+let secondelement=myTuple[1]; //truck
+
+
+Enum
+====
+function GetallBooks(){
+
+let books=[
+{ title:Ulysses',author:'James Joyce',available:true,category:Cateogry.Fiction},
+title:A Farewell to Arms',author:'Hernest Hemingway',available:false,category:Cateogry.Fiction},
+title:I know why the caged bird sings',author:'Maya Angelu',available:true,category:Cateogry.Poetry},
+{title:'Moby dick',author:'Herman Melville',available:true,category:Category.Fiction}
+ 
+];
+
+......
+
+console.log('First Available:'......);
+
+enum Category{Biography ,Poetry ,Fiction,History ,Children}
+
+function GetBooktitleByCategory(categoryFilter:Category):Array<string>{
+    console.log('Getting books in category 	:' + categoryFilter);
+const allBooks = GetAllBooks();
+const filteredTitles:string[]=[];
+
+  for (let currentBook of allBooks)
+{
+   if(currentBook.category === categoryfilter){
+          filteredTitles.push(currentBook.title);
+}
+}
+
+ return filteredTitles;
+
+}
+
+function LogBookTitles(titles:string[]):void{
+
+   for (let title of titles){
+   console.log(title);
+}
+}
+
+
+//const allBooks = GetAllBooks();
+//LogFirstAvailable(allBooks);
+
+const poetryBooks = GetBookTitlebyCategory(Category.poetry);
+LogBooktitles(poetryBooks);
+
+
+functions in typescript
+=======================
+
+functions in typescripts
+========================
+types(of course)
+arrow functions
+function types
+required and optional parameters 
+default parameters 
+Rest parameters
+Overloaded functions
+
+javascript
+============
+
+no types
+Arrow functions(ES2015)
+No Function types
+all parameters are optional 
+default parameters (ES2015)
+Rest parameters(ES2015)
+No Overloaded functions
+
+parameter and return types
+===========================
+
+function createCustomerid(name:string,id:number):string{
+return name + id;
+}
+
+Arrow functions
+=================
+concise syntax for anonymous functions
+
+let arr=allBooks.filter(function(book){
+   return book.author === 'Herman Melville';
+
+});
+
+let arr=allBooks.filter(book=>book.author === 'Herman Melville');
+
+paranthesis not required when passing one parameter to arrow function 
+for more than one argument we need paranthesis ..
+
+myBooks.forEach(()=>console.log('Done reading'));
+myBooks.forEach(title =>console.log(title));
+myBooks.forEach((title,idx,arr)=>console.log(idx + '-' + title));
+
+myBooks.forEach((title,idx,arr)=>{
+
+console.log(idx + '-' + title)
+
+});
+
+Handling "this"
+==================
+
+function Book(){
+   let self = this;
+self.publishDate = 2016;
+setInterval(function(){
+   console.log(self.publishDate);
+},1000);
+}
+
+function Book(){
+   this.publishDate = 2016;
+setInterval((){
+   console.log(this.publishDate);
+},1000);
+}
+
+function types 
+=================
+
+function Publicationmessage(year:number):string{
+return 'Date published: ' + year;
+
+}
+
+
+let publishFunc:(someYear :number)=>string;
+publishFunc = PublicationMessage;
+let message: string=publishfunc(2016);
+
+combination of parameter types  and return types
+variables may be declared with function types
+function assigned must have the same signature as the variable type
+
+in typescript 
+===============
+
+all parameters are required 
+
+in javascript 
+============
+
+
+all parameters are optional
+
+function CreateCustomer(name:string,age?:number){}
+
+example for default parameters 
+==============================
+function GetBookByTitle(title:string='the C programming Language'){}
+
+optional parameters denoted with "?"after parameter name
+must appear after all req parameters 
+
+default parameters may be set to a literal value or an expression .
+
+Functions:
+============
+
+1. Functions are the building blocks of readable, maintainable, and reusable code
+2. A function is a set of statements to perform a specific task
+3.  Functions organize the program into logical blocks of code. Once defined, functions may be called to access code. This makes the code reusable. 
+4.functions make it easy to read and maintain the program’s code.
+5.A function declaration tells the compiler about a function's name, return type, and parameters.
+6.Functions may also return value along with control, back to the caller. Such functions are called as returning functions.
+function function_name():return_type { 
+   //statements 
+   return value; 
+}
+
+The return_type can be any valid data type.
+
+A returning function must end with a return statement.
+
+A function can return at the most one value. In other words, there can be only one return statement per function.
+
+The data type of the value returned must match the return type of the function.
+
+Parameters are a mechanism to pass values to functions. Parameters form a part of the function’s signature. The parameter values are passed to the function during its invocation. Unless explicitly specified, the number of values passed to a function must match the number of parameters defined.
+Call by value
+
+This method copies the actual value of an argument into the formal parameter of the function. In this case, changes made to the parameter inside the function have no effect on the argument.
+
+	
+Call by pointer
+
+This method copies the address of an argument into the formal parameter. Inside the function, the address is used to access the actual argument used in the call.
+Optional parameters :
+====================
+
+Optional parameters can be used when arguments need not be compulsorily passed for a function’s execution. A parameter can be marked optional by appending a question mark to its name. The optional parameter should be set as the last argument in a function.
+
+Rest Parameters :
+=================
+Rest parameters are similar to variable arguments in Java. Rest parameters don’t restrict the number of values that you can pass to a function. However, the values passed must all be of the same type. In other words, rest parameters act as placeholders for multiple arguments of the same type.
+
+To declare a rest parameter, the parameter name is prefixed with three periods. Any nonrest parameter should come before the rest parameter.
+
+   Note - A parameter cannot be declared optional and default at the same time.
+
+function GetBooksReadForCust(name:string,...bookIDs:number[]{}
+
+let books = GetBooksReadForCust('Leigh',2,5);
+
+let books = GetBooksReadForCust('Leigh',2,5,12,42);
+
+REst parameters 
+
+collects a group of parameters into a single array
+denoted with an ellipsis prefix on last parameter
+
+Lambda Functions
+=================
+Lambda refers to anonymous functions in programming. Lambda functions are a concise mechanism to represent anonymous functions. These functions are also called as Arrow functions.
+
+Lambda Function - Anatomy
+There are 3 parts to a Lambda function -
+
+Parameters - A function may optionally have parameters
+
+The fat arrow notation/lambda notation (=>) - It is also called as the goes to operator
+
+Statements - represent the function’s instruction set
+
+Lambda Expression
+It is an anonymous function expression that points to a single line of code. Its syntax is as follows -
+
+( [param1, parma2,…param n] )=>statement;
+Example: Lambda Expression
+var foo = (x:number)=>10 + x 
+console.log(foo(100))      //outputs 110 
+The program declares a lambda expression function. The function returns the sum of 10 and the argument passed.
+
+On compiling, it will generate following JavaScript code.
+
+//Generated by typescript 1.8.10
+var foo = function (x) { return 10 + x; };
+console.log(foo(100));      //outputs 110
+Here is the output of the above code -
+
+110
+Lambda Statement
+Lambda statement is an anonymous function declaration that points to a block of code. This syntax is used when the function body spans multiple lines. Its syntax is as follows -
+
+( [param1, parma2,…param n] )=> {
+ 
+   //code block
+}
+Example: Lambda statement
+var foo = (x:number)=> {    
+   x = 10 + x 
+   console.log(x)  
+} 
+foo(100)
+
+Lambda Statement
+Lambda statement is an anonymous function declaration that points to a block of code. This syntax is used when the function body spans multiple lines.
+
+Syntactic Variations
+Parameter type Inference
+It is not mandatory to specify the data type of a parameter. In such a case the data type of the parameter is any. Let us take a look at the following code snippet -
+
+var func = (x)=> { 
+   if(typeof x=="number") { 
+      console.log(x+" is numeric") 
+   } else if(typeof x=="string") { 
+      console.log(x+" is a string") 
+   }  
+} 
+func(12) 
+func("Tom")
+
+
+
+//Generated by typescript 1.8.10
+var func = function (x) {
+   if (typeof x == "number") {
+      console.log(x + " is numeric");
+   } else if (typeof x == "string") {
+      console.log(x + " is a string");
+   }
+};
+func(12);
+func("Tom");
+
+var display = x=> { 
+   console.log("The function got "+x) 
+} 
+display(12)
+
+Optional braces for a single statement, Empty parentheses for no parameter
+The following example shows these two Syntactic variations.
+
+var disp =()=> { 
+   console.log("Function invoked"); 
+} 
+disp();
+
+Function Overloads
+==================
+Functions have the capability to operate differently on the basis of the input provided to them. In other words, a program can have multiple methods with the same name with different implementation. This mechanism is termed as Function Overloading. TypeScript provides support for function overloading.
+
+Declare multiple functions with the same name but different function signature. Function signature includes the following.
+
+The data type of the parameter
+
+function disp(string):void; 
+function disp(number):void;
+The number of parameters
+
+function disp(n1:number):void; 
+function disp(x:number,y:number):void;
+The sequence of parameters
+
+function disp(n1:number,s1:string):void; 
+function disp(s:string,n:number):void;
+
+An interface is a syntactical contract that an entity should conform to. In other words, an interface defines the syntax that any entity must adhere to.
+
+Interfaces define properties, methods, and events, which are the members of the interface. Interfaces contain only the declaration of the members. It is the responsibility of the deriving class to define the members. It often helps in providing a standard structure that the deriving classes would follow.
+
+Let’s consider an object -
+
+var person = { 
+   FirstName:"Tom", 
+   LastName:"Hanks", 
+   sayHi: ()=>{ return "Hi"} 
+};
+If we consider the signature of the object, it could be -
+
+{ 
+   FirstName:string, 
+   LastName:string, 
+   sayHi()=>string 
+}
+
+interface IPerson { 
+   firstName:string, 
+   lastName:string, 
+   sayHi: ()=>string 
+} 
+
+var customer:IPerson = { 
+   firstName:"Tom",
+   lastName:"Hanks", 
+   sayHi: ():string =>{return "Hi there"} 
+} 
+
+console.log("Customer Object ") 
+console.log(customer.firstName) 
+console.log(customer.lastName) 
+console.log(customer.sayHi())  
+
+var employee:IPerson = { 
+   firstName:"Jim",
+   lastName:"Blakes", 
+   sayHi: ():string =>{return "Hello!!!"} 
+} 
+  
+console.log("Employee  Object ") 
+console.log(employee.firstName) console.log(employee.lastName)
+

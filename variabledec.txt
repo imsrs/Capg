@@ -1,0 +1,32 @@
+let mystring='this is a string';
+mystring = 42; //error !!
+
+function ReturnNumber(){
+return 33;
+}
+
+let anotherString='this is another string';
+anotherString=ReturnNumber(); //error!!
+
+add type annotations :
+=====================
+
+let mystring:string ='this is a string';
+mystring = 42; //error!!
+
+function ReturnNumber():number{
+return 33;
+
+let anotherString : string='this is another string';
+
+
+arrow functions
+===============
+
+let arr = allBooks.filter(function(book){
+  return book.author === 'Herman Melville';
+});
+
+let arr = allBooks.filter(book => book.author === 'Herman Melville');
+
+anotherString=ReturnNumber(); //error!!
